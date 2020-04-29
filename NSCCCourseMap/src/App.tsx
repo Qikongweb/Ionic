@@ -28,12 +28,16 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
+
 /* Theme variables */
 import './theme/variables.css';
 import AcademicYears from './pages/AcademicYears';
 import Courses from './pages/Courses';
 import DiplomaPrograms from './pages/DiplomaPrograms';
 import Instructors from './pages/Instructors';
+import Semesters from './components/Semesters';
+import SemesterCourses from './components/SemesterCourses';
+import CoruseDetails from './components/CourseDetails';
 
 const App: React.FC = () => (
   <IonApp>
@@ -41,10 +45,14 @@ const App: React.FC = () => (
       <IonTabs>
         <IonRouterOutlet>
           <Route path="/academicyears" component={AcademicYears} exact={true} />
+          <Route path="/academicyears/:id" component={Semesters} exact={true} />
+          <Route path="/academicyears/semesters/:id" component={SemesterCourses} exact={true} />
+          <Route path="/academicyears/semesters/courses/:id" component={CoruseDetails} exact={true} />
+
           <Route path="/courses" component={Courses} exact={true} />
           <Route path="/diplomaprograms" component={DiplomaPrograms} />
           <Route path="/instructors" component={Instructors} />
-          <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
+          <Route path="/" render={() => <Redirect to="/academicyears" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="Academic Years" href="/academicyears">
