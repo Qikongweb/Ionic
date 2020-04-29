@@ -37,7 +37,9 @@ import DiplomaPrograms from './pages/DiplomaPrograms';
 import Instructors from './pages/Instructors';
 import Semesters from './components/Semesters';
 import SemesterCourses from './components/SemesterCourses';
-import CoruseDetails from './components/CourseDetails';
+import CourseDetails from './components/CourseDetails';
+import CoursesTaught from './components/CoursesTaught';
+import AcademicAdvisors from './components/AcademicAdvisors';
 
 const App: React.FC = () => (
   <IonApp>
@@ -47,11 +49,17 @@ const App: React.FC = () => (
           <Route path="/academicyears" component={AcademicYears} exact={true} />
           <Route path="/academicyears/:id" component={Semesters} exact={true} />
           <Route path="/academicyears/semesters/:id" component={SemesterCourses} exact={true} />
-          <Route path="/academicyears/semesters/courses/:id" component={CoruseDetails} exact={true} />
+          <Route path="/academicyears/semesters/courses/:id" component={CourseDetails} exact={true} />
 
           <Route path="/courses" component={Courses} exact={true} />
+          <Route path="/courses/:id" component={CourseDetails} exact={true} />
+          
           <Route path="/diplomaprograms" component={DiplomaPrograms} />
-          <Route path="/instructors" component={Instructors} />
+          <Route path="/diplomaprograms/:id" component={AcademicAdvisors} />
+
+          <Route path="/instructors" component={Instructors} exact={true} />
+          <Route path="/instructors/:id" component={CoursesTaught} exact={true} />
+
           <Route path="/" render={() => <Redirect to="/academicyears" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

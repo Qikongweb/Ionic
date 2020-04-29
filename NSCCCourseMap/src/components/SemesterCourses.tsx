@@ -59,12 +59,13 @@ const SemesterCourses: React.FC<DetailPageProps> = ({ match }) => {
                 <IonTitle color="primary" size="large" className="subTitleStyle">Courses: </IonTitle>
                 <IonList>
                     {
+                        semesterCourses.CoursesTaught.length === 0? "None":
                         semesterCourses.CoursesTaught.map((course: any,index:number) => {
                             return (
                                 <IonItem
                                     routerLink={`/academicyears/semesters/courses/${course.Id}`}
                                     detail={true}
-                                    key={index}>
+                                    key={course.Id}>
                                     {course.Title}
                                 </IonItem>
                             )

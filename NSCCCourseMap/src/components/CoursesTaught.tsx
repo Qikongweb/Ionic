@@ -8,20 +8,20 @@ interface DetailPageProps extends RouteComponentProps<{
     id: string;
 }> { }
 
-const CourseDetails: React.FC<DetailPageProps> = ({ match }) => {
+const CoursesTaught: React.FC<DetailPageProps> = ({ match }) => {
     //define the semester state
-    const [courseDetails, setCourseDetails] = useState<any>({
-        Title: '',
-        CourseCode: '',
-        CoursePrerequisites: [],
-        IsPrerequisiteFor: []
+    const [courses, setCourses] = useState<any>({
+        FirstName: '',
+        LastName: '',
+        AdvisingAssignments: [],
+        CoursesTaught: []
     });
 
     //retrieve data from the api 
-    const url = `https://w0417378-apim.azure-api.net/courses/${match.params.id}`
+    const url = `https://w0417378-apim.azure-api.net/instructors/${match.params.id}`
     useEffect(() => {
         getData(data => {
-            setCourseDetails(data)
+            setCourses(data)
           },url)
         
     }, [])
@@ -29,7 +29,7 @@ const CourseDetails: React.FC<DetailPageProps> = ({ match }) => {
     // refresh
     const doRefresh = (event: CustomEvent<RefresherEventDetail>) => {
         getData(data => {
-            setCourseDetails(data)
+            setCourses(data)
             event.detail.complete() //stops the spinner
           },url)
 
@@ -44,7 +44,7 @@ const CourseDetails: React.FC<DetailPageProps> = ({ match }) => {
                         <IonBackButton text="Back"  color="primary" />
                     </IonButtons>
                     
-                    <IonTitle>Course Details</IonTitle>
+                    <IonTitle>Instructors</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
@@ -56,31 +56,16 @@ const CourseDetails: React.FC<DetailPageProps> = ({ match }) => {
                         refreshingText="Refreshing...">
                     </IonRefresherContent>
                 </IonRefresher>
-                <IonTitle color="primary" size="large" className="subTitleStyle">Course Details: </IonTitle>
+                <IonTitle color="primary" size="large" className="subTitleStyle">Courses Taught by {courses.LastName}, {courses.FirstName}</IonTitle>
                 <IonList>
-                    <IonItem>Course Title: {'' || courseDetails.Title}</IonItem>
-                    <IonItem>Course Code: {'' || courseDetails.CourseCode}</IonItem>
-
-                    <IonItem>Course Prerequisites: 
+                    
+                    <IonItem>
                         <IonList>
-                            {courseDetails.CoursePrerequisites.length === 0? "None":(
-                                courseDetails.CoursePrerequisites.map((item:any,index: number) => {
+                            {courses.CoursesTaught.length === 0? "None":(
+                                courses.CoursesTaught.map((item:any,index: number) => {
                                     return (
                                         <>
                                         <IonItem key={index}>Course Title: {item.Title}<br></br>Course Code: {item.CourseCode}</IonItem>
-                                        </>
-                                    )
-                                })
-                            )}
-                        </IonList>   
-                    </IonItem>
-                    <IonItem>Is Prerequisite For: 
-                        <IonList>
-                            {courseDetails.IsPrerequisiteFor.length === 0? "None":(
-                                courseDetails.IsPrerequisiteFor.map((item:any,index: number) => {
-                                    return (
-                                        <>
-                                        <IonItem key={index+10}>Course Title: {item.Title}<br></br>Course Code: {item.CourseCode}</IonItem>
                                         </>
                                     )
                                 })
@@ -95,4 +80,4 @@ const CourseDetails: React.FC<DetailPageProps> = ({ match }) => {
     );
 };
 
-export default CourseDetails;
+export default CoursesTaught;

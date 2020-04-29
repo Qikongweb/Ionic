@@ -6,7 +6,8 @@ import getData from '../components/fetchData';
 
 const Courses: React.FC = () => {
   const [courses, setCourses] = useState([]);
-  const [searchText, setSearchText] = useState("")
+  const [searchText, setSearchText] = useState("");
+  const [noFoundText, setNoFoundText] = useState("");
   const url = 'https://w0417378-apim.azure-api.net/courses';
 
   useEffect(() => {
@@ -29,7 +30,11 @@ const Courses: React.FC = () => {
 
   const handleInput = (event: any) => {
     //console.log(event.detail.value)
-    setSearchText(event.target.value!)
+    setSearchText(event.target.value)
+    setNoFoundText(courses.filter((course: any) => {
+                return course.Title.toLowerCase().includes(event.target.value.toLowerCase())
+              }).length === 0? "No courses found.":"" )
+    
   }
   return (
     <IonPage>
@@ -52,22 +57,21 @@ const Courses: React.FC = () => {
         </IonRefresher>
         <IonList>
           {
-
-              courses
-              .sort((a,b) => {return (a['Title'] > b['Title'])? 1: -1})
+              courses.sort((a,b) => {return (a['Title'] > b['Title'])? 1: -1})
               .filter((course: any) => {
                 return searchText === "" || course.Title.toLowerCase().includes(searchText.toLowerCase())
               })
               .map((c: any) => {
                 return (
                   <IonItem
-                    // routerLink={`/academicyears/${acy.Id}`}
+                    routerLink={`/courses/${c.Id}`}
                     key={c.Id}>
                     {c.Title} 
                   </IonItem>
                 )
-              })
+              }) 
           }
+          <IonTitle>{noFoundText}</IonTitle>
         </IonList>
       </IonContent>
     </IonPage>
