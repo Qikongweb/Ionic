@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonRefresher, IonRefresherContent, IonBackButton, IonIcon, IonButtons, IonText } from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonRefresher, IonRefresherContent, IonBackButton, IonIcon, IonButtons } from '@ionic/react';
 import { RouteComponentProps } from 'react-router';
 import { RefresherEventDetail } from '@ionic/core';
 import getData from './fetchData';
@@ -20,7 +20,6 @@ const Semesters: React.FC<DetailPageProps> = ({ match }) => {
     useEffect(() => {
         getData(data => {
             setSemesters(data)
-            console.log(data);
             },url)
     }, [])
 
@@ -28,7 +27,6 @@ const Semesters: React.FC<DetailPageProps> = ({ match }) => {
     const doRefresh = (event: CustomEvent<RefresherEventDetail>) => {
         // console.log('Begin async operation');
         getData(data => {
-            console.log(data)
             setSemesters(data)
             event.detail.complete() //stops the spinner
           },url)
@@ -59,7 +57,9 @@ const Semesters: React.FC<DetailPageProps> = ({ match }) => {
                 <IonTitle color="primary" size="large" className="subTitleStyle">Semesters: </IonTitle>
                 <IonList>
                     {
-                        semesters.Semesters.map((semester: any) => {
+                        semesters.Semesters
+                        .sort((a:any,b:any)=>{return (a.StartDate - b.StartDate)? 1: -1})
+                        .map((semester: any) => {
                             return (
                                 <IonItem
                                     routerLink={`/academicyears/semesters/${semester.Id}`}

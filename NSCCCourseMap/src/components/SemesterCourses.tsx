@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonRefresher, IonRefresherContent, IonButton, IonBackButton, IonIcon, IonButtons } from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonRefresher, IonRefresherContent, IonBackButton, IonIcon, IonButtons } from '@ionic/react';
 import { RouteComponentProps } from 'react-router';
 import { RefresherEventDetail } from '@ionic/core';
 import getData from './fetchData';
