@@ -56,7 +56,7 @@ const AdvisingAssignments: React.FC<DetailPageProps> = ({ match }) => {
                         refreshingText="Refreshing...">
                     </IonRefresherContent>
                 </IonRefresher>
-                <IonTitle color="primary" size="large" className="subTitleStyle">Advising Assignments:</IonTitle>
+                    <h3>Advising Assignments/{courses.FirstName} {courses.LastName}</h3>
                 <IonList>
                     
                     <IonItem>

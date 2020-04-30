@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonRefresher, IonRefresherContent, IonBackButton, IonIcon, IonButtons } from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonContent, IonList, IonItem, IonRefresher, IonRefresherContent, IonBackButton, IonIcon, IonButtons } from '@ionic/react';
 import { RouteComponentProps } from 'react-router';
 import { RefresherEventDetail } from '@ionic/core';
 import getData from './fetchData';
@@ -48,6 +48,7 @@ const CoursesTaught: React.FC<DetailPageProps> = ({ match }) => {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
+            
                 <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
                     <IonRefresherContent
                         pullingIcon="arrow-dropdown"
@@ -56,16 +57,20 @@ const CoursesTaught: React.FC<DetailPageProps> = ({ match }) => {
                         refreshingText="Refreshing...">
                     </IonRefresherContent>
                 </IonRefresher>
-                <IonTitle color="primary" size="large" className="subTitleStyle">Courses Taught by {courses.LastName}, {courses.FirstName}</IonTitle>
+                <h3>Courses taught by {courses.LastName}, {courses.FirstName}</h3>
                 <IonList>
-                    
+                
                     <IonItem>
                         <IonList>
                             {courses.CoursesTaught.length === 0? "None":(
                                 courses.CoursesTaught.map((item:any,index: number) => {
                                     return (
                                         <>
-                                        <IonItem key={index}>Course Title: {item.Title}<br></br>Course Code: {item.CourseCode}</IonItem>
+                                        <IonItem 
+                                            routerLink={`/instructors/courses/${item.Id}`}
+                                            key={item.Id}>
+                                            {item.Title} - {item.CourseCode}
+                                        </IonItem>
                                         </>
                                     )
                                 })

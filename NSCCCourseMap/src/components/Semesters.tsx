@@ -42,7 +42,7 @@ const Semesters: React.FC<DetailPageProps> = ({ match }) => {
                         <IonBackButton text="Back"  color="primary" />
                     </IonButtons>
                     
-                    <IonTitle>Academic Years/{semesters.Title}</IonTitle>
+                    <IonTitle>Academic Years</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
@@ -54,7 +54,8 @@ const Semesters: React.FC<DetailPageProps> = ({ match }) => {
                         refreshingText="Refreshing...">
                     </IonRefresherContent>
                 </IonRefresher>
-                <IonTitle color="primary" size="large" className="subTitleStyle">Semesters: </IonTitle>
+                {/* <IonTitle color="primary" size="large" className="subTitleStyle">Semesters: </IonTitle> */}
+                <h3>Semesters/{semesters.Title}</h3>
                 <IonList>
                     {
                         semesters.Semesters

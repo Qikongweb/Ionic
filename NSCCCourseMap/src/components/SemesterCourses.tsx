@@ -44,7 +44,7 @@ const SemesterCourses: React.FC<DetailPageProps> = ({ match }) => {
                         <IonBackButton text="Back"  color="primary" />
                     </IonButtons>
                     
-                    <IonTitle>Academic Years/{semesterCourses.AcademicYear}/{semesterCourses.Name}</IonTitle>
+                    <IonTitle>Academic Years</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
@@ -56,7 +56,8 @@ const SemesterCourses: React.FC<DetailPageProps> = ({ match }) => {
                         refreshingText="Refreshing...">
                     </IonRefresherContent>
                 </IonRefresher>
-                <IonTitle color="primary" size="large" className="subTitleStyle">Courses: </IonTitle>
+                {/* <IonTitle color="primary" size="large" className="subTitleStyle">Courses: </IonTitle> */}
+                <h3>Courses/{semesterCourses.AcademicYear}/{semesterCourses.Name}</h3>
                 <IonList>
                     {
                         semesterCourses.CoursesTaught.length === 0? "None":

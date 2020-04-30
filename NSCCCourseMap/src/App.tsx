@@ -61,6 +61,7 @@ const App: React.FC = () => (
 
           <Route path="/instructors" component={Instructors} exact={true} />
           <Route path="/instructors/:id" component={CoursesTaught} exact={true} />
+          <Route path="/instructors/courses/:id" component={CourseDetails} exact={true} />
 
           <Route path="/" render={() => <Redirect to="/academicyears" />} exact={true} />
         </IonRouterOutlet>

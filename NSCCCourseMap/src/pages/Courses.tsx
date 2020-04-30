@@ -71,7 +71,7 @@ const Courses: React.FC = () => {
                 )
               }) 
           }
-          <IonTitle>{noFoundText}</IonTitle>
+          <h3>{noFoundText}</h3>
         </IonList>
       </IonContent>
     </IonPage>

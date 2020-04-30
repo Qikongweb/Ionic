@@ -1,7 +1,3 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
-.subTitleStyle {
-  font-size: 25px;
-  margin-top: 30px;
-}

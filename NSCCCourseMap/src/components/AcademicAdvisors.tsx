@@ -7,10 +7,22 @@ import getData from './fetchData';
 interface DetailPageProps extends RouteComponentProps<{
     id: string;
 }> { }
+function uniqueObj(arr:any) {
+    var result: any[] = [];
+    const map = new Map();
+    arr.forEach((item:any) => {
+        if(!map.has(item.Id)){
+            map.set(item.Id,true);
+            result.push(item);
+        }
+    })
+    return result;
+
+}
 
 const AcademicAdvisors: React.FC<DetailPageProps> = ({ match }) => {
     //define the semester state
-    const [advisors, setAdvisors] = useState<any>({
+    const [advisorsDP, setAdvisors] = useState<any>({
         Title: '',
         Advisors: [],      
     });
@@ -19,7 +31,11 @@ const AcademicAdvisors: React.FC<DetailPageProps> = ({ match }) => {
     const url = `https://w0417378-apim.azure-api.net/diplomaprograms/${match.params.id}`
     useEffect(() => {
         getData(data => {
-            setAdvisors(data)
+            var advisors = data.Advisors.map((item:any) => {
+                return {'Id':item.Id,'Instructor':item.Instructor}
+            });
+            
+            setAdvisors({Title:data.Title,Advisors:uniqueObj(advisors)})
           },url)
         
     }, [])
@@ -27,7 +43,11 @@ const AcademicAdvisors: React.FC<DetailPageProps> = ({ match }) => {
     // refresh
     const doRefresh = (event: CustomEvent<RefresherEventDetail>) => {
         getData(data => {
-            setAdvisors(data)
+            var advisors = data.Advisors.map((item:any) => {
+                return {'Id':item.Id,'Instructor':item.Instructor}
+            });
+            
+            setAdvisors({Title:data.Title,Advisors:uniqueObj(advisors)})
             event.detail.complete() //stops the spinner
           },url)
 
@@ -42,7 +62,7 @@ const AcademicAdvisors: React.FC<DetailPageProps> = ({ match }) => {
                         <IonBackButton text="Back"  color="primary" />
                     </IonButtons>
                     
-                    <IonTitle>Diploma Programs/{advisors.Title}</IonTitle>
+                    <IonTitle>Diploma Programs</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
@@ -54,23 +74,19 @@ const AcademicAdvisors: React.FC<DetailPageProps> = ({ match }) => {
                         refreshingText="Refreshing...">
                     </IonRefresherContent>
                 </IonRefresher>
-                <IonTitle color="primary" size="large" className="subTitleStyle">Advisors:</IonTitle>
+                <h3>Advisors/{advisorsDP.Title}</h3>
                 <IonList>
                     
                     <IonItem>
                         <IonList>
-                            {advisors.Advisors.length === 0? "None":(
-                                advisors.Advisors.map((item:any,index: number) => {
-                                    return (
-                                        <>
-                                        <IonItem 
+                            {advisorsDP.Advisors.map((item:any)=>{
+                                return <IonItem 
                                             routerLink={`/diplomaprograms/advisors/${item.Id}`}
                                             key={item.Id}>
-                                            {item.Instructor} - {item.AcademicYear} - {item.DiplomaProgramYear} - {item.DisplomaProgramYearSection}</IonItem>
-                                        </>
-                                    )
-                                })
-                            )}
+                                            {item.Instructor}
+                                       </IonItem>
+                            })}
+
                         </IonList>   
                     </IonItem>
                     
