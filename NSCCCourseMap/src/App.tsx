@@ -40,6 +40,7 @@ import SemesterCourses from './components/SemesterCourses';
 import CourseDetails from './components/CourseDetails';
 import CoursesTaught from './components/CoursesTaught';
 import AcademicAdvisors from './components/AcademicAdvisors';
+import AdvisingAssignments from './components/AdvisingAssignments';
 
 const App: React.FC = () => (
   <IonApp>
@@ -54,8 +55,9 @@ const App: React.FC = () => (
           <Route path="/courses" component={Courses} exact={true} />
           <Route path="/courses/:id" component={CourseDetails} exact={true} />
           
-          <Route path="/diplomaprograms" component={DiplomaPrograms} />
-          <Route path="/diplomaprograms/:id" component={AcademicAdvisors} />
+          <Route path="/diplomaprograms" component={DiplomaPrograms} exact={true}/>
+          <Route path="/diplomaprograms/:id" component={AcademicAdvisors} exact={true}/>
+          <Route path="/diplomaprograms/advisors/:id" component={AdvisingAssignments} exact={true}/>
 
           <Route path="/instructors" component={Instructors} exact={true} />
           <Route path="/instructors/:id" component={CoursesTaught} exact={true} />

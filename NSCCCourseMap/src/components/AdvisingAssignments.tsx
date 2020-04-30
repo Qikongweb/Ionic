@@ -8,18 +8,20 @@ interface DetailPageProps extends RouteComponentProps<{
     id: string;
 }> { }
 
-const AcademicAdvisors: React.FC<DetailPageProps> = ({ match }) => {
+const AdvisingAssignments: React.FC<DetailPageProps> = ({ match }) => {
     //define the semester state
-    const [advisors, setAdvisors] = useState<any>({
-        Title: '',
-        Advisors: [],      
+    const [courses, setCourses] = useState<any>({
+        FirstName: '',
+        LastName: '',
+        AdvisingAssignments: [],
+        CoursesTaught: []
     });
 
     //retrieve data from the api 
-    const url = `https://w0417378-apim.azure-api.net/diplomaprograms/${match.params.id}`
+    const url = `https://w0417378-apim.azure-api.net/instructors/${match.params.id}`
     useEffect(() => {
         getData(data => {
-            setAdvisors(data)
+            setCourses(data)
           },url)
         
     }, [])
@@ -27,7 +29,7 @@ const AcademicAdvisors: React.FC<DetailPageProps> = ({ match }) => {
     // refresh
     const doRefresh = (event: CustomEvent<RefresherEventDetail>) => {
         getData(data => {
-            setAdvisors(data)
+            setCourses(data)
             event.detail.complete() //stops the spinner
           },url)
 
@@ -42,7 +44,7 @@ const AcademicAdvisors: React.FC<DetailPageProps> = ({ match }) => {
                         <IonBackButton text="Back"  color="primary" />
                     </IonButtons>
                     
-                    <IonTitle>Diploma Programs/{advisors.Title}</IonTitle>
+                    <IonTitle>Diploma Programs</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
@@ -54,19 +56,16 @@ const AcademicAdvisors: React.FC<DetailPageProps> = ({ match }) => {
                         refreshingText="Refreshing...">
                     </IonRefresherContent>
                 </IonRefresher>
-                <IonTitle color="primary" size="large" className="subTitleStyle">Advisors:</IonTitle>
+                <IonTitle color="primary" size="large" className="subTitleStyle">Advising Assignments:</IonTitle>
                 <IonList>
                     
                     <IonItem>
                         <IonList>
-                            {advisors.Advisors.length === 0? "None":(
-                                advisors.Advisors.map((item:any,index: number) => {
+                            {courses.AdvisingAssignments.length === 0? "None":(
+                                courses.AdvisingAssignments.map((item:any,index: number) => {
                                     return (
                                         <>
-                                        <IonItem 
-                                            routerLink={`/diplomaprograms/advisors/${item.Id}`}
-                                            key={item.Id}>
-                                            {item.Instructor} - {item.AcademicYear} - {item.DiplomaProgramYear} - {item.DisplomaProgramYearSection}</IonItem>
+                                        <IonItem key={index}>{item.AcademicYear} - {item.DiplomaProgram} - {item.DiplomaProgramYear} - {item.DisplomaProgramYearSection}</IonItem>
                                         </>
                                     )
                                 })
@@ -81,4 +80,4 @@ const AcademicAdvisors: React.FC<DetailPageProps> = ({ match }) => {
     );
 };
 
-export default AcademicAdvisors;
+export default AdvisingAssignments;
