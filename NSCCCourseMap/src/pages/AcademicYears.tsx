@@ -6,6 +6,7 @@ import getData from '../components/fetchData';
 
 const AcademicYears: React.FC = () => {
   const [academicYears, setAcademicYears] = useState([]);
+  // const urlprxy ='https://cors-anywhere.herokuapp.com/';
   const url = 'https://w0417378-apim.azure-api.net/academicyears';
 
   useEffect(() => {

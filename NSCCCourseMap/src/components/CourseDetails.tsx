@@ -56,7 +56,6 @@ const CourseDetails: React.FC<DetailPageProps> = ({ match }) => {
                         refreshingText="Refreshing...">
                     </IonRefresherContent>
                 </IonRefresher>
-                <IonTitle color="primary" size="large" className="subTitleStyle">Course Details: </IonTitle>
                 <IonList>
                     <IonItem>Course Title: {'' || courseDetails.Title}</IonItem>
                     <IonItem>Course Code: {'' || courseDetails.CourseCode}</IonItem>
